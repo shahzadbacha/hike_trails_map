@@ -70,8 +70,8 @@ The data has been extracted from OpenStreetMap. The following method have been u
   SET green_factor = round(((len_intersect/len_total)*1)::numeric, 2)
   ```
   
-## Tippecanoe
-- Instalation:
+## Generating MBTiles
+- Install Tippecanoe:
   ```
   sudo apt-get update
   sudo apt-get install software-properties-common
@@ -92,7 +92,7 @@ The data has been extracted from OpenStreetMap. The following method have been u
 
   tippecanoe --version
   ```
-- Creating MBTiles:
+- Create MBTiles:
   - Export hike_trails layer to a GeoJSON file
   - Run the following command to generate MBTiles
     ```
