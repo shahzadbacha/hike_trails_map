@@ -75,9 +75,6 @@
 	mapboxgl.accessToken = 'pk.eyJ1Ijoic2hhaHphZGJhY2hhIiwiYSI6ImNqOHlxZnlveTFtcnUyeHF1ZG5qYTlwbTgifQ.3OQu0QLm5dUAZf7lAb3bqQ';
 	var map = new mapboxgl.Map({
 		container: 'map',
-		// style: 'mapbox://styles/mapbox/streets-v11',
-		// style: 'mapbox://styles/mapbox-map-design/ckhqrf2tz0dt119ny6azh975y',
-		// style: 'mapbox://styles/mapbox/outdoors-v11',
 		style: 'mapbox://styles/shahzadbacha/ckpa9q4md37hu17oan8dyhti1',
 		center: [-122.212,37.892], // Specify the starting position [lng, lat]
 		zoom: 10, // Specify the starting zoom
@@ -140,36 +137,6 @@
             }
 		});
 
-		// map.addLayer({
-		// 	'id': 'trails_simple_id',
-		// 	'type': 'line',
-		// 	'source': 'hike_trails_source',
-		// 	'source-layer': 'hike_trails',
-		// 	'layout': {},
-		// 	"minzoom": 5,
-  //           "maxzoom": 22,
-  //           "layout": {},
-  //           "paint": {
-  //               "line-color": "#006400",
-  //           	"line-width": [
-		// 			  "interpolate",
-		// 			  ["linear"],
-		// 			  ["zoom"],
-		// 			  5,
-		// 			  1,
-		// 			  10,
-		// 			  2,
-		// 			  14,
-		// 			  4,
-		// 			  17,
-		// 			  6,
-		// 			  22,
-		// 			  10
-		// 			]
-  //           	// "line-dasharray": [1, 1]
-  //           }
-		// });
-
 		// Add layer with different style for hover effect
 		map.addLayer({
 			'id': 'trails_hover_id',
@@ -211,18 +178,6 @@
 	map.on("mousemove", "trails_id", function(e) {
   		map.getCanvas().style.cursor = 'pointer';
         map.setFilter("trails_hover_id", ["==", "id", e.features[0].properties.id]);
-        
-        var features = map.queryRenderedFeatures(e.point, {layers: ['trails_id']}); // replace this with the name of the layer
-		
-		if (!features.length) {
-	      return;
-	    }
-	    var feature = features[0];
-
-        // var popup = new mapboxgl.Popup({ offset: [0, 0] })
-	      // popup.setLngLat(e.lngLat)
-	      // .setHTML('<h3>' + feature.properties.name + '</h3><h4>Length : ' + feature.properties.len_total.toFixed(1) + ' Miles</h4><h4>Green Factor : '+ (feature.properties.green_factor*100).toFixed(0) +'%</h4>')
-	      // .addTo(map);
     });
 
     // Reset the trails layer's filter when the mouse leaves the layer.
@@ -231,17 +186,6 @@
         map.getCanvas().style.cursor = '';
         map.setFilter("trails_hover_id", ["==", "id", ""]);
     });
-
-    /**
-	* Use Mapbox GL JS's `flyTo` to move the camera smoothly
-	* a given center point.
-	**/
-	function flyToStore(currentFeature) {
-		map.flyTo({
-			center: currentFeature.geometry.coordinates,
-			zoom: 15
-		});
-	}
 
     // Add popup when the user click on a feature
 	map.on('click', function(e) {
@@ -260,7 +204,6 @@
 	      .setHTML('<h3>' + feature.properties.name + '</h3><h4>Length : ' + feature.properties.len_total.toFixed(1) + ' Miles</h4><h4>Green Factor : '+ (feature.properties.green_factor*100).toFixed(0) +'%</h4>')
 	      .addTo(map);
 	});
-
 
 	// Add Mapbox Geocoder
 	map.addControl(
